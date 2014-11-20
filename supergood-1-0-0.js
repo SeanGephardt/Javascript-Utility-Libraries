@@ -1,6 +1,5 @@
 ﻿/* under development */
 
-
 var RandomData =
 {
 	/* functions */
