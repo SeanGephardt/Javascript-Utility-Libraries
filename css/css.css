@@ -1,0 +1,36 @@
+﻿/* copyright 2014 Sean Gephardt.  CC0 1.0 Universal. */
+body
+{
+	font-family:'Segoe UI', 'Arial';
+	font-size:small;
+	border: solid 0px rgba(255,0,0,1);
+	margin:0;
+	padding:0;
+	letter-spacing: -0.6px;
+}
+
+header, nav, article, section, footer
+{
+	border: solid 0px rgba(255,0,0,1);
+	margin:0;
+	padding:0;
+}
+footer
+{
+	font-size:80%;
+}
+menu, h1, h2, h3, h4, h5, div
+{
+	border: solid 0px rgba(255,0,0,1);
+	margin:0px;
+	padding:10px;
+}
+
+a 
+{
+	color:rgba(0,0,128,1);
+}
+nav menu a
+{
+	margin-right:10px;
+}
