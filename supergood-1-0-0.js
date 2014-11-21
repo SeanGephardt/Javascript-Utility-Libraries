@@ -1,41 +1,13 @@
 ﻿/* under development */
 
-var RandomData =
+var Random =
 {
-	/* functions */
+	/* Top Level Functions */
 	Number: function ()
 	{
 		var retVal = parseInt( new String( Math.random() * 0.999999999 ).split( '.' )[1] );
 		//	console.log( "TrueRandomNumber()::retVal = ", retVal );
 		return retVal;
-	},
-	RandomFromArray: function ( array )
-	{
-		var rnd = Math.round( Math.random() * ( 0 || array.length - 1 ) );
-		var final_state = array[rnd];
-		return final_state;
-	},
-	RandomFromCollection: function ( collection )
-	{
-		var temp_array = [];
-		for ( var key in collection )
-		{
-			temp_array.push( collection[key] );
-			//if ( collection.hasOwnProperty( key ) )
-			//{
-			//	console.log( key + " -> " + collection[key] );
-			//}
-		}
-		//	console.log( "temp_array.length", temp_array.length );
-		//	for ( var z = 0; z < temp_array.length; z++ )
-		//	{
-		//		console.log( "temp_array = ", z, temp_array[z] );
-		//	}
-		var rnd = Math.round( Math.random() * ( 0 || temp_array.length - 1 ) );
-		//	console.log("rnd = ", rnd);
-		var final_item = temp_array[rnd];
-		console.log( "RandomValueFromCollection::final_item = ", final_item );
-		return final_item;
 	},
 	GUID: function ()
 	{	//	Format - {A419A37A-8852-4929-B988-85AF859E793C}
@@ -56,13 +28,44 @@ var RandomData =
 		//	console.log( "_temp_guid = ", _temp_guid.join("") );
 		return _temp_guid.join( "" );
 	},
+	FromArray: function ( array )
+	{
+		var rnd = Math.round( Math.random() * ( 0 || array.length - 1 ) );
+		var final_state = array[rnd];
+		return final_state;
+	},
+	FromCollection: function ( collection )
+	{
+		var temp_array = [];
+		for ( var key in collection )
+		{
+			temp_array.push( collection[key] );
+			//if ( collection.hasOwnProperty( key ) )
+			//{
+			//	console.log( key + " -> " + collection[key] );
+			//}
+		}
+		//	console.log( "temp_array.length", temp_array.length );
+		//	for ( var z = 0; z < temp_array.length; z++ )
+		//	{
+		//		console.log( "temp_array = ", z, temp_array[z] );
+		//	}
+		var rnd = Math.round( Math.random() * ( 0 || temp_array.length - 1 ) );
+		//	console.log("rnd = ", rnd);
+		var final_item = temp_array[rnd];
+		console.log( "Random.FromCollection::final_item = ", final_item );
+		return final_item;
+	},
+
 
 	/* Arrays */
-	ColorArray: ["#000000", "#FFFFFF", "#333333", "#666666", "#999999", "#FF0000", "#00FF00", "#0000FF"],
+	DefinedColorArray: ["#000000", "#FFFFFF", "#333333", "#666666", "#999999", "#FF0000", "#00FF00", "#0000FF"],
+	GreyColorArray: ["#000000", "#111111", "#222222", "#333333", "#444444", "#555555", "#666666", "#777777", "#888888", "#999999", "#AAAAAA", "#BBBBBB", "#CCCCCC", "#DDDDDD", "#EEEEEE", "#FFFFFF"],
+	PrimaryColorArray: ["#FF0000","#FFFF00","#0000FF","#FFFFFF","#000000"],
 	ColorAlphaArray: ["A", "B", "C", "D", "E", "F"],
 	ColorNumericArray: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
-	GreyColorArray: ["#000000", "#111111", "#222222", "#333333", "#444444", "#555555", "#666666", "#777777", "#888888", "#999999", "#AAAAAA", "#BBBBBB", "#CCCCCC", "#DDDDDD", "#EEEEEE", "#FFFFFF"],
-	RandomGreyColor: function ()
+
+	GreyColors: function ()
 	{
 		var _retVal = this.RandomFromArray( this.GreyColorArray );
 		//	console.log("RandomData.RandomGreyColor() = ", _retVal);
@@ -94,7 +97,7 @@ var RandomData =
 	},
 	DefinedColor: function ()
 	{
-		return this.RandomFromArray( this.ColorArray );
+		return this.RandomFromArray( this.DefinedColorArray );
 	},
 	IpAddress: function ()
 	{
