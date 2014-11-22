@@ -1,33 +1,15 @@
-﻿/* under development */
+﻿/* UNDER DEVELOPMENT */
+/* 
+Copyright 2014 Sean Gephardt
+http://seangephardt.com/
+To be included in a html page, and called as applicable.
+*/
+var SuperGood = window.SuperGood || {};
 
-var Random =
+/* Child functions that generate random data*/
+SuperGood.Random =
 {
-	/* Top Level Functions */
-	Number: function ()
-	{
-		var retVal = parseInt( new String( Math.random() * 0.999999999 ).split( '.' )[1] );
-		//	console.log( "TrueRandomNumber()::retVal = ", retVal );
-		return retVal;
-	},
-	GUID: function ()
-	{	//	Format - {A419A37A-8852-4929-B988-85AF859E793C}
-		var _temp_guid = [];
-		var bit_array = this.ColorAlphaArray.concat( this.ColorNumericArray );
-
-		for ( var i = 0; i < 36; i++ )
-		{
-			if ( i === 8 || i == 13 || i == 18 || i == 23 )
-			{
-				_temp_guid[i] = "-";
-			}
-			else
-			{
-				_temp_guid[i] = this.RandomFromArray( bit_array );
-			}
-		}
-		//	console.log( "_temp_guid = ", _temp_guid.join("") );
-		return _temp_guid.join( "" );
-	},
+	/* Utility functions, used internally & externally */
 	FromArray: function ( array )
 	{
 		var rnd = Math.round( Math.random() * ( 0 || array.length - 1 ) );
@@ -57,114 +39,191 @@ var Random =
 		return final_item;
 	},
 
-
-	/* Arrays */
-	DefinedColorArray: ["#000000", "#FFFFFF", "#333333", "#666666", "#999999", "#FF0000", "#00FF00", "#0000FF"],
-	GreyColorArray: ["#000000", "#111111", "#222222", "#333333", "#444444", "#555555", "#666666", "#777777", "#888888", "#999999", "#AAAAAA", "#BBBBBB", "#CCCCCC", "#DDDDDD", "#EEEEEE", "#FFFFFF"],
-	PrimaryColorArray: ["#FF0000","#FFFF00","#0000FF","#FFFFFF","#000000"],
-	ColorAlphaArray: ["A", "B", "C", "D", "E", "F"],
-	ColorNumericArray: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
-
-	GreyColors: function ()
+	/* Simple value ID-like functions */
+	Number: function (predicate)
 	{
-		var _retVal = this.RandomFromArray( this.GreyColorArray );
-		//	console.log("RandomData.RandomGreyColor() = ", _retVal);
-		return _retVal;
-	},
-	RandomColor: function ()
-	{
-		var temp_color = "#";
+		var retVal = 0;
 
-		for ( var i = 0; i < 6; i++ )
+		if ( predicate !== undefined )
 		{
-			var alpha_num_mixer = Math.random();
-			//	console.log("alpha_num_mixer::",alpha_num_mixer);
-			var rounded = Math.round( alpha_num_mixer );
-			//	console.log("rounded::",rounded);
+			retVal = new Number( Math.random() ).toFixed( predicate );
+		}
+		else
+		{
+			retVal = new Number( Math.random() ).toFixed( 3 );
+		}
 
-			if ( rounded == 0 )
+		var _temp = new Number(retVal.toString().split( "." ).join(""));
+		//	console.log( "TrueRandomNumber()::retVal = ", retVal );
+		//	console.log( "TrueRandomNumber()::_temp = ", _temp );
+		return _temp.toString();
+	},
+	GUID: function ()
+	{	//	Format - {A419A37A-8852-4929-B988-85AF859E793C}
+		var _temp_guid = [];
+		var bit_array = SuperGood.DataArrays.HexAlpha.concat( SuperGood.DataArrays.Numeric );
+
+		for ( var i = 0; i < 36; i++ )
+		{
+			if ( i === 8 || i == 13 || i == 18 || i == 23 )
 			{
-				temp_color = temp_color + this.RandomFromArray( this.ColorAlphaArray );
+				_temp_guid[i] = "-";
 			}
 			else
 			{
-				temp_color = temp_color + this.RandomFromArray( this.ColorNumericArray );
+				_temp_guid[i] = this.FromArray( bit_array );
 			}
-			//	console.log("temp_color = ", temp_color);
 		}
+		//	console.log( "_temp_guid = ", _temp_guid.join("") );
+		return _temp_guid.join( "" );
+	},
+	ID: function(stringPrefix)
+	{
+		var _ret_val;
+		var _temp_id = [];
 
-		return temp_color;
-	},
-	DefinedColor: function ()
-	{
-		return this.RandomFromArray( this.DefinedColorArray );
-	},
-	IpAddress: function ()
-	{
-		return Math.round( Math.random() * 255 ) + "." + Math.round( Math.random() * 255 ) + "." + Math.round( Math.random() * 255 ) + "." + Math.round( Math.random() * 255 );
-	},
-	MacAddress: function ()
-	{
-		var _mac = [
-			Math.round( Math.random() * 99 ),
-			Math.round( Math.random() * 99 ),
-			Math.round( Math.random() * 99 ),
-			Math.round( Math.random() * 99 ),
-			Math.round( Math.random() * 99 ),
-			Math.round( Math.random() * 99 ),
-		];
-		return _mac[0] + ":" + _mac[1] + ":" + _mac[2] + ":" + _mac[3] + ":" + _mac[4] + ":" + _mac[5];
-	},
-	EnterpriseCount: function ()
-	{
-		return Math.round( Math.random() * 9753 );
+		if ( stringPrefix !== undefined && stringPrefix.length > 0)
+		{
+			var pattern2 = /[0-9]|[`~!@!#\$\^%&*()]|[+=\-\_]|[{}\[\]\|\\\/]|[.:;,\'\"<>\?]/gi;
+			var re1 = new RegExp(pattern2);
+			var _temp = stringPrefix.replace( re1, "" );
+			//	console.log( "_temp", _temp );
+			_temp_id.push( _temp );
+		}
+		else
+		{
+			_temp_id.push( "sg" );
+		}
+		_temp_id.push( "-" );
+
+		var _rnd = (Math.random() * Math.PI).toFixed(5).split(".");	//	console.log( "i = r = ", _rnd[1] );
+		_temp_id.push( _rnd[1] );
+
+		_ret_val = _temp_id.join( "" );
+		//	console.log( "Random.ID::_ret_val", _ret_val );
+		return _ret_val;
 	},
 	Percentage: function ()
 	{
-		return Math.round( Math.random() * 99 );
+		return Math.round( Math.random() * 99 ) + "%";
 	},
-	InstallDate: function ()
+	Date: function ()
+	{	// needs formatting work, for localization
+		return new Date( 2015, Math.round( Math.random() * 12 ), Math.round( Math.random() * 31 ), Math.round( Math.random() * 24 ), Math.round( Math.random() * 60 ), Math.round( Math.random() * 60 ), Math.round( Math.random() * 1000 ) );
+	},
+
+	/* Methods for color values */
+	GreyColors: function ()
 	{
-		return new Date( 2013, Math.round( Math.random() * 12 ), Math.round( Math.random() * 31 ), Math.round( Math.random() * 24 ), Math.round( Math.random() * 60 ), Math.round( Math.random() * 60 ), Math.round( Math.random() * 1000 ) );
+		//	for debugging - 
+		//	var _retVal = this.FromArray( SuperGood.DataArrays.GreyScale );
+		//	console.log("RandomData.RandomGreyColor() = ", _retVal);
+		return this.FromArray( SuperGood.DataArrays.GreyScale );
 	},
-	PatchDate: function ()
+	RandomColor: function ()
 	{
-		var newDate = new Date() - 7;	//	console.log("newDate",newDate);
-		return newDate;
+		var temp_color = ["#"];
+		for ( var i = 0; i < 6; i++ )
+		{
+			if ( Math.round( Math.random() ) == 0 )
+			{
+				temp_color.push( this.FromArray( SuperGood.DataArrays.HexAlpha ) );
+			}
+			else
+			{
+				temp_color.push( this.FromArray( SuperGood.DataArrays.Numeric ) );
+			}
+		}
+		return temp_color.join("");
 	},
-	IpType: function ()
+	DefinedColor: function ()
 	{
-		var state_array = ["Dynamic", "Static"];
-		return this.RandomFromArray( state_array );
+		return this.FromArray( SuperGood.DataArrays.DefinedColorArray );
 	},
-	OperatingSystemArray: ["Windows 8", "Windows Server 2003", "Windows Server 2008", "Windows Server 2008 R2", "Windows Server 2012", "Windows Server 2012 R2"],
+
+	/* Specific formatted values */
+	IpAddress: function ()
+	{
+		var _delim = ".";
+		return [Math.round( Math.random() * 255 ), _delim, Math.round( Math.random() * 255 ), _delim, Math.round( Math.random() * 255 ), _delim, Math.round( Math.random() * 255 )].join( "" );
+	},
+	MacAddress: function ()
+	{	// 00:09:5B:EC:EE:F2
+		var _delim = ":";
+		var _mac = [];
+
+		for ( var i = 0; i < 6; i++ )
+		{
+			if ( Math.round( Math.random() ) == 0 )
+			{
+				_mac.push( this.FromArray( SuperGood.DataArrays.HexAlpha ) );
+			}
+			else
+			{
+				_mac.push( this.FromArray( SuperGood.DataArrays.Numeric ) );
+			}
+			if ( Math.round( Math.random() ) == 0 )
+			{
+				_mac.push( this.FromArray( SuperGood.DataArrays.HexAlpha ) );
+			}
+			else
+			{
+				_mac.push( this.FromArray( SuperGood.DataArrays.Numeric ) );
+			}
+
+			if ( i != 5 )
+			{
+				_mac.push( _delim );
+			}
+		}
+		return _mac.join("");
+	},
+
+	/* misc random examples */
 	OperatingSystem: function ()
 	{
-		return this.RandomFromArray( this.OperatingSystemArray );
+		return this.FromArray( SuperGood.DataArrays.OperatingSystems );
 	},
-	RamValueArray: [16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192],
 	RamValue: function ()
 	{
-		return this.RandomFromArray( this.RamValueArray );
+		return this.FromArray( SuperGood.DataArrays.RAM );
 	},
-	HDDValueArray: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130],
-	HHDValue: function ()
+	HardDriveSize: function ()
 	{
-		return this.RandomFromArray( this.HDDValueArray );
+		return this.FromArray( SuperGood.DataArrays.HardDriveSize );
 	},
-	FontSizeArray: ["xx-small", "x-small", "small", "medium", "large", "x-large", "xx-large"],
 	FontSize: function ()
 	{
-		return this.RandomFromArray( this.FontSizeArray );
+		return this.FromArray( SuperGood.DataArrays.FontPointSizes );
 	},
-	FontPointSizeArray: ["8", "10", "12", "14", "16", "20", "24", "30", "36", "40", "48", "54", "60", "66", "70", "72", "76", "80", "90", "100", "120", "136", "148", "160"],
-	FontPointSize: function ()
+	WebFontSize: function ()
 	{
-		return this.RandomFromArray( this.FontPointSizeArray );
+		return this.FromArray( SuperGood.DataArrays.FontWebSizes );
 	},
-	FontArray: ["Arial", "Cambria", "Calibri", "Cooper Black", "Elephant", "Georgia", "Impact", "Segoe UI", "Showcard Gothic"],
 	RandomFont: function ()
 	{
-		return this.RandomFromArray( this.FontArray );
+		return this.FromArray( SuperGood.DataArrays.Fonts );
 	},
+};
+SuperGood.DataArrays =
+{
+	/* characters */
+	Alpha: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"],
+	Numeric: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
+	HexAlpha: ["A", "B", "C", "D", "E", "F"],
+
+	/* colors & color schemes */
+	DefinedColorArray: ["#6e6058", "#718069", "#82ab80", "#b4cc8f", "#e3e2a8"],
+	GreyScale: ["#000000", "#111111", "#222222", "#333333", "#444444", "#555555", "#666666", "#777777", "#888888", "#999999", "#AAAAAA", "#BBBBBB", "#CCCCCC", "#DDDDDD", "#EEEEEE", "#FFFFFF"],
+	PrimaryColors: ["#FF0000", "#FFFF00", "#0000FF", "#FFFFFF", "#000000"],
+
+	/* fonts */
+	Fonts: ["Arial", "Cambria", "Calibri", "Cooper Black", "Elephant", "Georgia", "Impact", "Segoe UI", "Showcard Gothic"],
+	FontWebSizes: ["xx-small", "x-small", "small", "medium", "large", "x-large", "xx-large"],
+	FontPointSizes: ["8", "10", "12", "14", "16", "20", "24", "30", "36", "40", "48", "54", "60", "66", "70", "72", "76", "80", "90", "100", "120", "136", "148", "160"],
+
+	/* misc */
+	HardDriveSize: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200],
+	RAM: [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384],
+	OperatingSystems: ["Linux", "Atari MultiDOS", "BeOS", "Unix", "Apple OS X", "Apple iOS", "Google Chome OS", "Google Android", "Microsoft Windows", "Microsoft Windows Server "],
 };

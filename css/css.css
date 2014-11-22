@@ -22,7 +22,7 @@ footer
 menu, h1, h2, h3, h4, h5, div
 {
 	border: solid 0px rgba(255,0,0,1);
-	margin:0px;
+	margin:0;
 	padding:10px;
 }
 
@@ -33,4 +33,11 @@ a
 nav menu a
 {
 	margin-right:10px;
+}
+
+div.example-node
+{
+	border: solid 1px rgba(192,192,192,1);
+	margin:10px;
+	padding:0;
 }

@@ -13,6 +13,7 @@ $( function ()
 		console.info( "BEGIN" );
 
 		/* begin testing of 'supergood' here */
+		console.log( "SuperGood.Random.GreyColors()", SuperGood.Random.GreyColors() );
 	}
 	catch ( err )
 	{
