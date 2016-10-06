@@ -1,9 +1,5 @@
 ﻿/* 
-Copyright 2014 Sean Gephardt
-http://seangephardt.com/
-Used as a testing function.
-To be included in a html page.
-Requires jQuery.
+Copyright 2017 Sean Gephardt
 */
 "use strict";
 $( function ()
