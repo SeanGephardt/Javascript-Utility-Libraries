@@ -1,8 +1,6 @@
 ﻿/* 
 Copyright 2017 Sean Gephardt. http://seangephardt.com/
-Used as a testing function.
- To be included in a html page.
- Requires jQuery.
+Used as a template.
  */
 "use strict";
 ( function ()
