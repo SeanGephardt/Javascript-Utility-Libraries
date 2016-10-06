@@ -1,12 +1,14 @@
 ﻿/* copyright 2017 Sean Gephardt.  CC0 1.0 Universal. */
 body
 {
-	font-family:'Segoe UI', 'Arial';
-	font-size:medium;
+	background-color:rgba(32,32,32,1);
+	color:rgba(224,224,224,1);
 	border: solid 0px rgba(255,0,0,1);
-	margin:0;
+	font-family:'Segoe UI', 'Arial';
+	font-size:calc(0.5em + 1vw);
+	margin:0 auto;
 	padding:0;
-	letter-spacing: -0.2px;
+	letter-spacing: -0.1px;
 }
 
 header, nav, article, section, footer
@@ -28,11 +30,12 @@ menu, h1, h2, h3, h4, h5, div
 
 a 
 {
-	color:rgba(0,0,128,1);
+	color:rgba(224,224,224,1);
 }
 nav menu a
 {
 	margin-right:10px;
+	text-decoration:none;
 }
 
 div.example-node
