@@ -6,7 +6,7 @@ body
 	border: solid 0px rgba(255,0,0,1);
 	font-family:'Segoe UI', 'Arial';
 	font-size:calc(0.5em + 1vw);
-	margin:0 auto;
+	margin:10px;
 	padding:0;
 	letter-spacing: -0.1px;
 }
@@ -27,7 +27,6 @@ menu, h1, h2, h3, h4, h5, div
 	margin:0;
 	padding:10px;
 }
-
 a 
 {
 	color:rgba(224,224,224,1);
@@ -37,7 +36,6 @@ nav menu a
 	margin-right:10px;
 	text-decoration:none;
 }
-
 div.example-node
 {
 	border: solid 1px rgba(192,192,192,1);

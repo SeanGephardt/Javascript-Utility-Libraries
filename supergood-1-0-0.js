@@ -109,7 +109,7 @@ SuperGood.Random =
 	},
 	Date: function ()
 	{	// needs formatting work, for localization
-		return new Date( 2015, Math.round( Math.random() * 12 ), Math.round( Math.random() * 31 ), Math.round( Math.random() * 24 ), Math.round( Math.random() * 60 ), Math.round( Math.random() * 60 ), Math.round( Math.random() * 1000 ) );
+		return new Date( 2017, Math.round( Math.random() * 12 ), Math.round( Math.random() * 31 ), Math.round( Math.random() * 24 ), Math.round( Math.random() * 60 ), Math.round( Math.random() * 60 ), Math.round( Math.random() * 1000 ) );
 	},
 
 	/* Methods for color values */
